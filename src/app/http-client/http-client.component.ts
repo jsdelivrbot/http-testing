@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, DoCheck } from '@angular/core';
 // import { HttpClient } from '@angular/common/http';
 import { DataService } from '../data.service';
 
@@ -15,11 +15,11 @@ import { Frequency, STATISTICS } from '../shared/data';
   styleUrls: ['./http-client.component.css'],
   providers: [DataService]
 })
-export class HttpClientComponent implements OnInit {
+export class HttpClientComponent implements DoCheck, OnInit {
 
   title = 'D3.js with Angular 2!';
   subtitle = 'Bar Chart';
-  private STATISTICS = [];
+  private STATISTICS =[];
   private width: number;
   private height: number;
   private margin = {top: 20, right: 20, bottom: 30, left: 40};
@@ -32,13 +32,15 @@ export class HttpClientComponent implements OnInit {
   constructor(private service: DataService) {}
 
   ngOnInit() {
-    this.service.getStats().subscribe((stats)=> this.STATISTICS = stats); //get data fom service
+    this.service.getStats().subscribe((stats)=> {this.STATISTICS = stats; console.log(stats);}); //get data fom service
+    console.log(this.STATISTICS);
+  }
+  ngDoCheck(){
     this.initSvg();
     this.initAxis();
     this.drawAxis();
     this.drawBars();
   }
-
   private initSvg() {
     this.svg = d3.select("svg");
     this.width = +this.svg.attr("width") - this.margin.left - this.margin.right ;
