@@ -1,10 +1,18 @@
 # HttpTesting
 
+Installation instructions:
+1. Install NPM and Node.JS
+2. Run `npm install` on both the client and server directories
+## Running  the server
+3. Run `node getting_started.js`. You should see the JSON object on the command prompt if it works.
+## Running the client
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+
+Random information about Angular:
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.3.2.
 
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
