@@ -14,14 +14,14 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
-
+//add route for post unew users
 app.get('/file', (req, res)=>{
   res.send(json);
   res.end();
 });
-//graph query mongoDB database to pull out statistics
-//post new Graph object by form-express+angular form
-//get all data to connect to d3 graph
+// graph query mongoDB database to pull out statistics
+// post new Graph object by form-express+angular form
+// get specific data to connect to d3 graph
 
 
 app.listen(3000);

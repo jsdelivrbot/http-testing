@@ -7,7 +7,7 @@ import * as d3Scale from "d3-scale";
 import * as d3Array from "d3-array";
 import * as d3Axis from "d3-axis";
 
-import { Frequency, STATISTICS } from '../shared/data';
+import { Frequency } from '../shared/data';
 
 @Component({
   selector: 'app-http-client',
@@ -19,7 +19,7 @@ export class HttpClientComponent implements DoCheck, OnInit {
 
   title = 'D3.js with Angular 2!';
   subtitle = 'Bar Chart';
-  private STATISTICS =[];
+  private STATISTICS=[];
   private width: number;
   private height: number;
   private margin = {top: 20, right: 20, bottom: 30, left: 40};
