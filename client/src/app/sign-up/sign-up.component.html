@@ -1,21 +1,53 @@
-<div class="container">
-  <form #signupForm="ngForm">
-  <h1>Sign Uo</h1>
+{{diagnostic}}
+<div [hidden]="submit">
+  <div class="container">
+  <form (ngSubmit)="onSubmit()" #signupForm="ngForm">
+  <h1>Sign Up</h1>
+    <div class="form-group">
+      <label for="userName">User Name</label>
+      <input type="text" name="username" class="form-control" id="userName"  [(ngModel)]="model.userName" required>
+    </div>
   <div class="form-group">
     <label for="firstName">First Name</label>
     <input type="text" name="firstname" class="form-control" id="firstName"  [(ngModel)]="model.firstName" required>
   </div>
   <div class="form-group">
     <label for="lastName">Last Name:</label>
-    <input type="text" name="lastname"  class="form-control" id="lastName">
+    <input type="text" name="lastname"  class="form-control" id="lastName" [(ngModel)]="model.lastName" #check="ngModel" required>
   </div>
+  <div [hidden]="check.valid || check.pristine" class="alert alert-danger">
+    Name field is required
+  </div>
+    <div class="form-group">
+      <label for="password">password:</label>
+      <input type="text" name="password"  class="form-control" id="password" >
+    </div>
   <div class="form-group">
-    <label for="data"></label>
-    <select class="form-control" id="data" required>
+    <label for="data">Data Category</label>
+    <select class="form-control" id="data" [(ngModel)]="model.dataType" name="dataType">
       <option *ngFor="let type of dataType" [value]=type >{{type}}</option>
     </select>
   </div>
-  <button type="submit" name="button" class="btn btn-success">submit</button>
-  </form>
+  <button type="submit" name="button" class="btn btn-success" [disabled]="!signupForm.form.valid">submit</button>
+  <button type="button" name="reset"  class="btn btn-default" (click)="resetForm(); signupForm.reset();">reset</button>
+</form>
+</div>
+</div>
 
+<div [hidden]="!submit">
+  <h2>You submitted the following:</h2>
+  <div class="row">
+    <div class="col-xs-3">User Name</div>
+    <div class="col-xs-9  pull-left">{{ model.userName }}</div>
+  </div>
+  <div class="row">
+    <div class="col-xs-3">First Name</div>
+    <div class="col-xs-9 pull-left">{{ model.firstName }}</div>
+  </div>
+  <div class="row">
+    <div class="col-xs-3">Last Name</div>
+    <div class="col-xs-9 pull-left">{{ model.lastName }}</div>
+  </div>
+  <br>
+  <button class="btn btn-primary" (click)="submitted=false">Edit</button>
 </div>
