@@ -7,12 +7,15 @@ var cors = require('cors');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
+var crypt = require("apache-crypt");
 
 var app = express();
 app.use(express.static('public'));
 //read data
 var file = './revenue_time.json';
 var json = JSON.stringify( jsonfile.readFileSync(file) );
+
+mongoose.connect('mongodb://root:root@ds133044.mlab.com:33044/graph');
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -24,6 +27,21 @@ app.get('/file', (req, res)=>{
   res.send(json);
   res.end();
 });
+app.post('/login', (req, res)=>{
+  //get username and password from header
+  //get user password from db
+  // Graph.find(function (err, data){
+  //   if (err) return err;
+  //   console.log(data);
+  // });
+  const login= false;
+  var encryptedPassword = crypt("mypass");
+  if (crypt("mypass", encryptedPassword) == encryptedPassword){
+    login = true;
+  }
+  return login;
+});
+
 // graph query mongoDB database to pull out statistics
 // post new Graph object by form-express+angular form
 // get specific data to connect to d3 graph
