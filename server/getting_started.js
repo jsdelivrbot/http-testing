@@ -2,11 +2,16 @@
 var mongoose = require('mongoose');
 var jsonfile = require('jsonfile');
 var express = require('express');
+const basicAuthMidleWare = require('./basic-auth-middleware')
+var cors = require('cors');
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var cookieSession = require('cookie-session');
 
 var app = express();
-app.use(express.static('public'))
+app.use(express.static('public'));
 //read data
-var file = './revenue_time.json'
+var file = './revenue_time.json';
 var json = JSON.stringify( jsonfile.readFileSync(file) );
 
 app.use(function(req, res, next) {
@@ -14,7 +19,7 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
-//add route for post unew users
+// add route for post unew users
 app.get('/file', (req, res)=>{
   res.send(json);
   res.end();

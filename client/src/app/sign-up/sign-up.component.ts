@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../shared/user';
+import { CanDeactivateGuard } from '../can-deactivate-guard.service';
 @Component({
   selector: 'sign-up-form',
   templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.css']
+  styleUrls: ['./sign-up.component.css'],
+  providers: [CanDeactivateGuard]
 })
 export class SignUpComponent implements OnInit {
 
