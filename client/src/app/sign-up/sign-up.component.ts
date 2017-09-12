@@ -1,19 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../shared/user';
 import { CanDeactivateGuard } from '../can-deactivate-guard.service';
+import { DataService } from '../data.service';
 @Component({
   selector: 'sign-up-form',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css'],
-  providers: [CanDeactivateGuard]
+  providers: [CanDeactivateGuard, DataService]
 })
 export class SignUpComponent implements OnInit {
 
-  constructor() { }
+  constructor(private service: DataService) { }
 
   ngOnInit() {
-      let userRandom = new User('Snirhordan94', 'Senir', 'Hordan', '3498798' );
-      console.log("Heres my user" + JSON.stringify(userRandom));
+      let userRandom = new User('Snirhordan94', 'Senir', 'Hordan', '3498798','Harvard', 'good' );
+      console.log("Heres my user" + JSON.stringify(userRandom)+ userRandom.firstName);
   }
   diagnostic = this.getTrace();
   education = ["Bachelor's Degree", "Master's Degree", "PhD"];
@@ -23,6 +24,8 @@ export class SignUpComponent implements OnInit {
   submit = false;
   onSubmit(){
     this.submit = true;
+    //post form to server
+    // this.service/.newUser(this.model)l;..;
   }
   resetForm(){
     this.model = new User('', '', '', '', this.education[0],
