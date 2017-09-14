@@ -4,12 +4,17 @@ import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from "./routing/routing.module";
 import { FormsModule } from "@angular/forms";
 
+import { DataService } from './data.service';
+import { AuthService } from './auth.service';
+
+import { AuthGuard } from './auth.guard';
+
 import { AppComponent } from './app.component';
 import { HttpClientComponent } from './http-client/http-client.component';
-import { DataService } from './data.service';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { LogInComponent } from './log-in/log-in.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +22,8 @@ import { WelcomeComponent } from './welcome/welcome.component';
     HttpClientComponent,
     SignUpComponent,
     PageNotFoundComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    LogInComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +31,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
     AppRoutingModule,
     FormsModule
   ],
-  providers: [DataService],
+  providers: [DataService, AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

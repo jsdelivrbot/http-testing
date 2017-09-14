@@ -10,11 +10,17 @@ import { RouterModule, Routes } from "@angular/router";
 import { SignUpComponent } from '../sign-up/sign-up.component';
 import { HttpClientComponent } from "../http-client/http-client.component";
 import { PageNotFoundComponent } from "../page-not-found/page-not-found.component";
+import { WelcomeComponent } from '../welcome/welcome.component';
+import { LogInComponent } from "../log-in/log-in.component";
+
+import { AuthGuard } from "../auth.guard";
 
 const appRoutes: Routes = [
-  {path: 'bar-chart', component: HttpClientComponent},
+  {path: 'bar-chart', component: HttpClientComponent, canActivate: [AuthGuard]},
   {path: 'sign-up', component: SignUpComponent},
-  {path: '', redirectTo: '/bar-chart', pathMatch:'full'},
+  {path: 'login', component: LogInComponent},
+  {path: 'welcome', component: WelcomeComponent},
+  {path: '', redirectTo: '/welcome', pathMatch:'full'},
   {path: '**', component: PageNotFoundComponent}
 ];
 
