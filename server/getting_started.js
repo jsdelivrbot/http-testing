@@ -2,31 +2,23 @@
 var mongoose = require('mongoose');
 var jsonfile = require('jsonfile');
 var express = require('express');
-const basicAuthMidleWare = require('./basic-auth-middleware')
+// const basicAuthMidleWare = require('./basic-auth-middleware');
 var cors = require('cors');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
 var crypt = require('apache-crypt');
+var multer = require('multer');
+
+var upload = multer();
 
 var app = express();
 app.use(express.static('public'));
-app.use(express.bodyParser());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 //read data
 var file = './revenue_time.json';
 var json = JSON.stringify( jsonfile.readFileSync(file) );
-
-mongoose.connect('mongodb://root:root@ds133044.mlab.com:33044/graph');
-var db = mongoose.connection;
-var UserSchema = mongoose.Schema({ userName: String,
-                                   firstName: String,
-                                   lastName: String,
-                                   password: String,
-                                   education: String,
-                                   dataType: String});
-
-var User = mongoose.model('Graph', UserSchema);
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -38,18 +30,31 @@ app.get('/file', (req, res)=>{
   res.send(json);
   res.end();
 });
-app.post('/signup', (req, res)=>{
-  var password = req.body.password
-  var encryptedPassword = crypt(password);
-  //get username and password from header
-  //get user password from db
-  //save to db
-  var data = new User(req.body.userName, req.body.firstName, req.body.lastName, encryptedPassword, req.body.education, req.body.dataType);
-  data.save(function (err, data){
-    if(err) return console.log(err);
-    data.identify();
-  });
+mongoose.connect('mongodb://root:root@ds133044.mlab.com:33044/graph');
+var db = mongoose.connection;
+var UserSchema = new mongoose.Schema({
+                                   userName: String,
+                                   firstName: String,
+                                   lastName: String,
+                                   password: String,
+                                   });
 
+var User = mongoose.model('Graph', UserSchema);
+
+app.post('/sign-up', upload.array(), (req, res)=>{
+  var password = req.body.password;
+  var encryptedPassword = crypt(password);
+  var data = new User();
+  data.userName = req.body.username;
+  data.firstName = req.body.firstName;
+  data.lastName = req.body.lastName;
+  data.password = encryptedPassword;
+  console.log(data);
+  data.save((err, data)=>{
+    if(err) return console.log(err);
+  });
+  console.log(req.body);
+  res.json(req.body);
 });
 
 app.listen(3000);

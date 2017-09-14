@@ -10,8 +10,10 @@ import { HttpClientComponent } from './http-client/http-client.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { LoginRoutingModule }      from './login/login-routing.module';
 
 import { DataService } from './data.service';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -20,14 +22,16 @@ import { DataService } from './data.service';
     HttpClientComponent,
     SignUpComponent,
     PageNotFoundComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
     AppRoutingModule,
     FormsModule,
-    AdminModule
+    AdminModule,
+    LoginRoutingModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent]
