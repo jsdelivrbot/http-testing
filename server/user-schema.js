@@ -8,6 +8,9 @@ var mongoose = require('mongoose'),
 var UserSchema = new Schema({
   username: {type: String, required: true, index:{ unique: true }} ,
   password: { type: String, required: true },
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
+  data: { type: Object.ObjectId, ref: 'Data' },
   loginAttempts: { type: Number, required: true, default: 0 },
   lockUntil: { type: Number } //timestamp when possible to ignore login attempts
 });
@@ -55,7 +58,7 @@ UserSchema.methods.incLoginAttempts = function(cb){
   var updates = { $inc: { loginAttempts: 1 } };
   //lock account if we reached maximum number of attempts amd isn't already locked
   if( this.loginAttempts + 1 > MAX_LOGIN_ATTEMPTS && !this.isLocked){
-    updates.$set = { lockUntil: date.now() + LOCK_TIME };
+    updates.$set = { lockUntil: Date.now() + LOCK_TIME };
   }
   return this.update(updates, cb);
 };

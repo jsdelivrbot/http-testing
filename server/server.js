@@ -6,9 +6,9 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const cookieSession = require('cookie-session');
-var crypt = require('apache-crypt');
+// var crypt = require('apache-crypt');
 var multer = require('multer');
-var UserSchema = require('./user-schema');
+var User = require('./user-schema');
 
 var upload = multer();
 
@@ -48,7 +48,7 @@ app.get('/file', (req, res)=>{
 });
 
 app.get('/isLoggedIn', (req, res)=>{
-    res.json({ok: true});
+    res.json({ok: req.session.authenticated});
     // res.end();
 });
 
@@ -56,57 +56,58 @@ app.post('/logOut', (req, res)=>{
   delete req.session.authenticated;
   res.sendStatus(204);
 });
-
+//change
 app.post('/logIn', (req, res)=>{
-  if( req.body.username &&
-      req.body.username === 'root' &&
-      req.body.password &&
-      req.body.password === 'root'
-  ){
-    req.session.authenticated = true;
-    res.json({ok: true});
-  }else{
-    res.json({ok: false});
-  }
+  User.getAuthenticated(req.body.username, req.body.password, function(err, user, reason) {
+      if (err) throw err;
+      // login was successful if we have a user
+      if (user) {
+          // handle login success ->>doesn't work
+          console.log('login success');
+          req.session.authenticated = true;
+          res.json({ok: true});
+      }else {
+        // otherwise we can determine why we failed
+        console.log('Login failed. Recieved:'+req.body.username + req.body.password);
+        res.json({ok: false});
+        }
+      });
 });
-var connStr = 'mongodb://root:root@ds133044.mlab.com:33044/graph';
-mongoose.connect(connStr);
-var db = mongoose.connection;
-var UserSchema = new mongoose.Schema({
-                                   userName: String,
-                                   firstName: String,
-                                   lastName: String,
-                                   password: String,
-                                   });
-
-var User = mongoose.model('Graph', UserSchema);
-
+  var connStr = 'mongodb://root:root@ds133044.mlab.com:33044/graph';
+  mongoose.connect(connStr, function(err) {
+      if (err) throw err;
+      console.log('Successfully connected to MongoDB');
+  });
 app.post('/signup', upload.array(), (req, res)=>{
-  console.log(req.body.parameter.password);
-  var password = req.body.parameter.password;
-  var encryptedPassword = crypt(password);
+  // create a user a new user
   var data = new User();
-  data.userName = req.body.parameter.username;
+  data.username = req.body.parameter.userName;
   data.firstName = req.body.parameter.firstName;
   data.lastName = req.body.parameter.lastName;
-  data.password = encryptedPassword;
+  data.password = req.body.parameter.password;
   console.log(data);
   data.save((err, data)=>{
-    if(err) return console.log(err);
+    if(err) return console.log(err, 'Server problems or probably user is already registered');
   });
   console.log(req.body);
   res.json(req.body);
+
 });
 
 var DataSchema = new mongoose.Schema({
-                                   letter: String,
-                                   frequency: Number
-                                   });
+                                   all: [{
+                                    user: Number //references user id
+                                    letter: String,
+                                    frequency: Number,
+                                    date: { type: Date,
+                                            default: Date.now}
+                                   }]
+                                          });
 var DataModel = mongoose.model('GraphData', DataSchema);
-
-app.post('/postdata', (req, res)=>{
-
-});
+//
+// app.post('/postdata', (req, res)=>{
+//
+// });
 
 app.listen(3000);
 
