@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../shared/user';
+import { DataService } from '../data.service';
+
+
 @Component({
   selector: 'sign-up-form',
   templateUrl: './sign-up.component.html',
@@ -7,7 +10,7 @@ import { User } from '../shared/user';
 })
 export class SignUpComponent implements OnInit {
 
-  constructor() { }
+  constructor( private service: DataService ) { }
 
   ngOnInit() {
       let userRandom = new User('Snirhordan94', 'Senir', 'Hordan', '3498798' );
@@ -21,6 +24,7 @@ export class SignUpComponent implements OnInit {
   submit = false;
   onSubmit(){
     this.submit = true;
+    this.service.newUser(this.model).subscribe();
   }
   resetForm(){
     this.model = new User('', '', '', '', this.education[0],
