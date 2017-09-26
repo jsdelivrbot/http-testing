@@ -10,7 +10,7 @@ var UserSchema = new Schema({
   password: { type: String, required: true },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
-  data: { type: Object.ObjectId, ref: 'Data' },
+  data: { type: Object, ref: 'Data' },
   loginAttempts: { type: Number, required: true, default: 0 },
   lockUntil: { type: Number } //timestamp when possible to ignore login attempts
 });
@@ -39,14 +39,14 @@ UserSchema.pre('save', function(next){
   });
 });
 
-UserSchema.methods.comparePassword = function(candidatePassword, cb){
-  bcrypt.compare(candidatePassword, this.password, function(err, isMatch){
+UserSchema.method('comparePassword' ,function(candidatePassword, cb){
+  bcrypt.compare(candidatePassword,this.password, function(err, isMatch){
     if (err) return cb(err);
     cb(null, isMatch)
   });
-};
+});
 
-UserSchema.methods.incLoginAttempts = function(cb){
+UserSchema.method('incLoginAttempts', function(cb){
   //if a previous lock expired restart count at 1
   if (this.lockUntil && this.lockUntil < Date.now()){
     return this.update({
@@ -61,7 +61,7 @@ UserSchema.methods.incLoginAttempts = function(cb){
     updates.$set = { lockUntil: Date.now() + LOCK_TIME };
   }
   return this.update(updates, cb);
-};
+});
 
 var reasons = UserSchema.statics.failedLogin = {
   NOT_FOUND : 0,
@@ -69,7 +69,7 @@ var reasons = UserSchema.statics.failedLogin = {
   MAX_ATTEMPTS : 2
 };
 
-UserSchema.statics.getAuthenticated = function(username, password, cb){
+UserSchema.static('getAuthenticated', function(username, password, cb){
   //pull user from db
   this.findOne({ username: username }, function(err, user){
     if(err) return cb(err);
@@ -106,6 +106,6 @@ UserSchema.statics.getAuthenticated = function(username, password, cb){
     });
 
   });
-};
+});
 
- module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', UserSchema);

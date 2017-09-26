@@ -10,7 +10,9 @@ mongoose.connect(connStr, function(err) {
 // create a user a new user
 var testUser = new User({
     username: 'jmar777',
-    password: 'Password123'
+    password: 'Password123',
+    firstName: 'Senir',
+    lastName: 'Hordan'
 });
 
 // save user to database

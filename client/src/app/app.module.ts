@@ -2,7 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from "./routing/routing.module";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import { MaterialModule } from './material-module/material-module.module';
 
 import { DataService } from './data.service';
 import { AuthService } from './auth.service';
@@ -15,6 +17,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { LogInComponent } from './log-in/log-in.component';
+
+
 
 @NgModule({
   declarations: [
@@ -29,9 +33,13 @@ import { LogInComponent } from './log-in/log-in.component';
     BrowserModule,
     HttpModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    NoopAnimationsModule,
+    MaterialModule
   ],
-  providers: [DataService, AuthService, AuthGuard],
+  providers: [DataService,
+              AuthService,
+              AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

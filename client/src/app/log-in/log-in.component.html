@@ -1,11 +1,23 @@
 {{message}}
-<form >
+<form class="example-form">
 
-  <p>Username:</p>
-  <input type="text" name="username" value="" [(ngModel)]="username" >
-  <p>password</p>
-  <input type="password" name="password" value="" [(ngModel)]="password" >
-  <br>
-  <button type="button" name="submit" (click)="onSubmit()">submit</button>
+<md-card class="example-card">
+  <md-card-header >
+    <h1 class="header">Log in</h1>
+  </md-card-header>
 
+  <md-card-content>
+<md-form-field class="example-full-width">
+  <input mdInput placeholder="First name" name="username" value="" [(ngModel)]="username">
+</md-form-field>
+<br>
+<md-form-field class="example-full-width">
+  <input mdInput placeholder="Password" name="password" value="" [(ngModel)]="password">
+</md-form-field>
+  </md-card-content>
+
+  <md-card-actions>
+    <button md-raised-button name="submit" (click)="onSubmit()" >submit</button>
+  </md-card-actions>
+</md-card>
 </form>

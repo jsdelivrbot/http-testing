@@ -1,0 +1,9 @@
+.example-card {
+  width: 400px;
+    margin: 0 auto;
+    position: relative;
+}
+.header{
+  text-align: center;
+  position: relative;
+}

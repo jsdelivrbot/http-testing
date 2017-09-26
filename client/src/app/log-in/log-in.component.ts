@@ -17,6 +17,7 @@ export class LogInComponent implements OnInit {
   password: string = '';
 
   onSubmit(){
+    console.log("onSubmit activated");
     this.authService.logIn(this.username, this.password)
         .subscribe((res)=>{
         if (res.ok){
