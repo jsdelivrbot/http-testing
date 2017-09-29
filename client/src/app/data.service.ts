@@ -16,4 +16,9 @@ export class DataService {
             .map( res=>res.json() )
             .catch((error)=> Observable.throw(error.json().error || 'Server error'));
   }
+  public postData(array, username){
+    return this.http.post('http://localhost:3000/postData', {array, username})
+                      .map(res=>res.json())
+                      .catch((error)=> Observable.throw(error.json().error || 'Server error'));
+  }
 }

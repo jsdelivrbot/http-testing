@@ -12,11 +12,12 @@ import { HttpClientComponent } from "../http-client/http-client.component";
 import { PageNotFoundComponent } from "../page-not-found/page-not-found.component";
 import { WelcomeComponent } from '../welcome/welcome.component';
 import { LogInComponent } from "../log-in/log-in.component";
-
+import { DataComponent } from '../data/data.component';
 import { AuthGuard } from "../auth.guard";
 
 const appRoutes: Routes = [
   {path: 'bar-chart', component: HttpClientComponent, canActivate: [AuthGuard]},
+  {path: 'post-data', component: DataComponent, canActivate: [AuthGuard]},
   {path: 'sign-up', component: SignUpComponent},
   {path: 'login', component: LogInComponent},
   {path: 'welcome', component: WelcomeComponent},

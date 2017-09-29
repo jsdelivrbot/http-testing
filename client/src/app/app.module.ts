@@ -17,6 +17,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { LogInComponent } from './log-in/log-in.component';
+import { DataComponent } from './data/data.component';
 
 
 
@@ -27,7 +28,8 @@ import { LogInComponent } from './log-in/log-in.component';
     SignUpComponent,
     PageNotFoundComponent,
     WelcomeComponent,
-    LogInComponent
+    LogInComponent,
+    DataComponent
   ],
   imports: [
     BrowserModule,
