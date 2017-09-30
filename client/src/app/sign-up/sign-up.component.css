@@ -1,0 +1,14 @@
+/*change md-content size to be limited*/
+.example-form{
+  position: absolute;
+  padding-top: 1em;
+  width: 500px;
+  padding-left: 5em;
+}
+.instructions{
+  position: absolute;
+  padding-top: 1em;
+  width: 400px;
+  padding-left: 1em;
+  display:inline;
+}

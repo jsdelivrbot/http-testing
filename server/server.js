@@ -68,7 +68,7 @@ app.post('/logIn', (req, res)=>{
   }).exec()
   .then(([user])=>{
     console.log('Found user in db')
-    console.log(myPassword +" "+user.password )
+    console.log(myPassword +" "+ user.password )
     if(bcrypt.compare(myPassword, user.password)) {
       req.session.authenticated = true;
       req.session.username = myUser;

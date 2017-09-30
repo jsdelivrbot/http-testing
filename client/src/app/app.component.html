@@ -2,8 +2,11 @@
   <h1>
     Welcome to {{title}}!
   </h1>
+<!-- add menu with all links -->
+
+
 <md-toolbar color="primary" class="toolbar">
-      <a routerLink="/bar-chart" routerLinkActive="active">Bar Chart</a>
+      <a routerLink="/bar-chart" routerLinkActive="active">Data</a>
 
 <span class="example-spacer"></span>
 
@@ -19,4 +22,8 @@
 
     <md-icon class="example-icon">verified_user</md-icon>
 </md-toolbar>
-<router-outlet></router-outlet>
+<router-outlet class="outlet"></router-outlet>
+
+<md-toolbar color="secondary" class="footer">
+  <p>All Rights Reserved to Blah blah</p>
+</md-toolbar>

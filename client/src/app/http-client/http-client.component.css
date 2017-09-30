@@ -1,0 +1,10 @@
+.example-card {
+    margin: 0 auto;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+}
+.header{
+  text-align: center;
+  position: static;
+}

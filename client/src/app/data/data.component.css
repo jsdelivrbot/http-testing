@@ -1,0 +1,23 @@
+.example-card {
+  /*space card to the right to make room for another card*/
+    width: 400px;
+    margin: 0 auto;
+    position: relative;
+}
+.header{
+  text-align: center;
+  position: relative;
+}
+.example-form{
+  position: absolute;
+  padding-top: 1em;
+  display: inline-block;
+}
+.instructions{
+  position: absolute;
+  left: 8em;
+  height: 400px;
+  width: 500px;
+  padding-top: 1em;
+
+}

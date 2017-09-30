@@ -1,19 +1,29 @@
-{{message}}
+<!-- add another card for instructions on correct format  -->
+<div class="instructions">
+  <md-card class="instructions-card">
+      <md-card-header >
+        <h1 class="header">Instructions</h1>
+      </md-card-header>
+      <md-card-content>
+        <p>Input must be of a JSON object with a primary "values" key and then a list of json objects
+              with "time" and "count" keys</p>
+      </md-card-content>
+  </md-card>
+</div>
+
 <form class="example-form">
 {{message}}
-
 <md-card class="example-card">
   <md-card-header >
     <h1 class="header">Post data</h1>
   </md-card-header>
-
   <md-card-content><md-form-field class="example-full-width">
-    <input mdInput placeholder="Username" name="username" value="" [(ngModel)]="username">
+    <input mdInput placeholder="Username" name="username" [(ngModel)]="username">
       <md-hint >Don't forget capital letters, etc.</md-hint>
   </md-form-field>
   <br>
 <md-form-field class="example-full-width">
-  <input mdInput placeholder="Data to Add to Personal DB" name="data" value="" [(ngModel)]="array">
+  <input mdInput placeholder="Data to Add to Personal DB" name="data" [(ngModel)]="array">
     <md-hint >Input must be of JSON object structure with "values" key with a list as value</md-hint>
 </md-form-field>
   </md-card-content>

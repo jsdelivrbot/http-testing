@@ -26,6 +26,9 @@ export class SignUpComponent implements OnInit {
     this.submit = true;
     this.service.newUser(this.model).subscribe();
   }
+  onEdit(){
+    this.submit = false;
+  }
   resetForm(){
     this.model = new User('', '', '', '', this.education[0],
                         this.dataType[0]);
