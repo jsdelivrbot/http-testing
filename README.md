@@ -6,7 +6,7 @@ Installation instructions:
 3. Run  `cd http-testing`.
 4. Run `npm install` on both the client and server directories. (Run  1.`cd client` 2.`npm install` and Run 1.`cd ..` 2.`cd server` 2.`npm install`)
 ## Running  the server
-5. Run `node getting_started.js`. You should see the JSON object on the command prompt if it works.
+5. Run `node server.js`. You should see the JSON object on the command prompt if it works.
 ## Running the client
 6. Run `ng serve` on a separate command prompt windo under the `http-testing\client` directory. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
